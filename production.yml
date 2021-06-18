@@ -80,5 +80,3 @@ services:
     image: drf_playground_production_flower
     restart: unless-stopped
     command: /start-flower
-
-  
