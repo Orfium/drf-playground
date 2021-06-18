@@ -1,0 +1,80 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: drf_playground_local_django
+    restart: unless-stopped
+    container_name: django
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8001:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: drf_playground_local_postgres
+    restart: unless-stopped
+    container_name: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:Z
+      - local_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres
+
+  redis:
+    image: redis:5.0
+    restart: unless-stopped
+    container_name: redis
+
+
+
+
+  celeryworker:
+    <<: *django
+    image: drf_playground_local_celeryworker
+    restart: unless-stopped
+    container_name: celeryworker
+    depends_on:
+      - redis
+      - postgres
+
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: drf_playground_local_celerybeat
+    restart: unless-stopped
+    container_name: celerybeat
+    depends_on:
+      - redis
+      - postgres
+
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: drf_playground_local_flower
+    restart: unless-stopped
+    container_name: flower
+    ports:
+      - "5555:5555"
+    command: /start-flower

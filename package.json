@@ -1,0 +1,13 @@
+{
+  "name": "drf_playground",
+  "version": "0.1.0",
+  "dependencies": {},
+  "engines": {
+    "node": ">=8"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "scripts": {
+  }
+}
