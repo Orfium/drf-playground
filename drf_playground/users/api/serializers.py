@@ -1,14 +1,16 @@
 from django.contrib.auth import get_user_model
 from django.db import transaction
-from rest_framework import serializers
 from drf_playground.users.models import Profile
+from rest_framework import serializers
 
 User = get_user_model()
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["user"]
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,6 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserReadSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
+
     class Meta:
         model = User
         fields = ["email", "profile"]

@@ -102,9 +102,6 @@ INSTALLED_APPS += ["anymail"]  # noqa F405
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 ANYMAIL = {}
 
-
-
-
 # LOGGING
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
@@ -147,7 +144,7 @@ LOGGING = {
             "handlers": ["console", "mail_admins"],
             "propagate": True,
         },
-        
+
     },
 }
 # Your stuff...

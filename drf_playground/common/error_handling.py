@@ -4,6 +4,7 @@ from logging import getLogger
 from django.conf import settings
 from django.db.utils import DatabaseError, IntegrityError
 from django.http import Http404
+from drf_playground.common.exceptions import ProjectAPIException
 from rest_framework.exceptions import (
     APIException,
     AuthenticationFailed,
@@ -22,7 +23,6 @@ from rest_framework.status import (
     HTTP_405_METHOD_NOT_ALLOWED,
     HTTP_500_INTERNAL_SERVER_ERROR,
 )
-from drf_playground.common.exceptions import ProjectAPIException
 
 logger = getLogger(__name__)
 

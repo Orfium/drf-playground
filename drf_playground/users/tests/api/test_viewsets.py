@@ -1,14 +1,13 @@
 from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
-from rest_framework import status
+from drf_playground.users.api.serializers import (
+    UserReadSerializer,
+    UserSerializer,
+)
+from drf_playground.users.api.viewsets import UserViewSet
 from mock import MagicMock
 from pytest import mark
-
-from drf_playground.users.api.viewsets import UserViewSet
-from  drf_playground.users.api.serializers import (
-    UserSerializer,
-    UserReadSerializer
-)
+from rest_framework import status
 
 
 @mark.users
@@ -43,7 +42,6 @@ class TestUserViewSet(TestCase):
         response = self.view_set.me(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
     def test_get_queryset_admin(self):
         self.view_set.request.user = MagicMock()
 
@@ -59,9 +57,7 @@ class TestUserViewSet(TestCase):
 
     def test_get_serializer_class_partial_update(self):
         self.view_set.action = "partial_update"
-        self.assertEqual(
-            self.view_set.get_serializer_class(), UserSerializer
-        )
+        self.assertEqual(self.view_set.get_serializer_class(), UserSerializer)
 
     def test_get_serializer_class_retrieve(self):
         self.view_set.action = "retrieve"
@@ -79,16 +75,11 @@ class TestUserViewSet(TestCase):
 
     def test_get_serializer_class_update(self):
         self.view_set.action = "update"
-        self.assertEqual(
-        self.view_set.get_serializer_class(), UserSerializer
-        )
+        self.assertEqual(self.view_set.get_serializer_class(), UserSerializer)
 
     def test_get_serializer_class_create(self):
         self.view_set.action = "create"
-        self.assertEqual(
-        self.view_set.get_serializer_class(), UserSerializer
-        )
-
+        self.assertEqual(self.view_set.get_serializer_class(), UserSerializer)
 
     def test_get_serializer_class_destroy(self):
         self.view_set.action = "destroy"

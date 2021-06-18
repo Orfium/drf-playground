@@ -1,8 +1,15 @@
-import os
 from unittest import TestCase
 
 from django.db.utils import DatabaseError, IntegrityError
 from django.http import Http404
+from drf_playground.common.error_handling import (
+    error_handler,
+    get_exception_handling_dict,
+    stringify_detail_exception,
+    stringify_exception,
+    stringify_validation_errors,
+)
+from drf_playground.common.exceptions import ProjectAPIException
 from mock import MagicMock, patch
 from pytest import mark
 from rest_framework.exceptions import (
@@ -22,16 +29,6 @@ from rest_framework.status import (
     HTTP_405_METHOD_NOT_ALLOWED,
 )
 
-from drf_playground.common.exceptions import (
-    ProjectAPIException,
-)
-from drf_playground.common.error_handling import (
-    get_exception_handling_dict,
-    stringify_detail_exception,
-    stringify_exception,
-    stringify_validation_errors,
-    error_handler,
-)
 
 @mark.common
 @mark.common_exceptions
@@ -187,7 +184,6 @@ class TestException(TestCase):
             },
         )
 
-
     def test_get_exception_handling_dict_api_error(self):
         exception = APIException("Error")
 
@@ -215,11 +211,10 @@ class TestException(TestCase):
         )
 
     @patch("drf_playground.common.error_handling.settings")
-    @patch("drf_playground.common.error_handling."
-           "get_exception_handling_dict")
-    def test_error_handler_handled_exception(
-        self, get_dict, settings
-    ):
+    @patch(
+        "drf_playground.common.error_handling." "get_exception_handling_dict"
+    )
+    def test_error_handler_handled_exception(self, get_dict, settings):
         exception = Exception("test")
         context = MagicMock()
         settings.DEBUG = True
@@ -231,11 +226,10 @@ class TestException(TestCase):
         error_handler(exception, context)
 
     @patch("drf_playground.common.error_handling.settings")
-    @patch("drf_playground.common.error_handling."
-           "get_exception_handling_dict")
-    def test_error_handler_unhandled_exception(
-        self, get_dict, settings
-    ):
+    @patch(
+        "drf_playground.common.error_handling." "get_exception_handling_dict"
+    )
+    def test_error_handler_unhandled_exception(self, get_dict, settings):
         exception = Exception("test")
         context = MagicMock()
         settings.DEBUG = True

@@ -2,12 +2,11 @@ from abc import ABC
 
 from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
+from drf_playground.users.api.views import SignInView
 from mock import patch
 from pytest import mark
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-
-from drf_playground.users.api.views import SignInView
 
 
 class BaseUserManagementTestView(ABC):

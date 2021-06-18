@@ -1,5 +1,5 @@
-from django.core.mail import EmailMessage
 from config import celery_app
+from django.core.mail import EmailMessage
 
 
 @celery_app.task()

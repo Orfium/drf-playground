@@ -1,8 +1,7 @@
 from django.test import TestCase
+from drf_playground.common.tasks import send_email
 from mock import patch
 from pytest import mark
-
-from drf_playground.common.tasks  import send_email
 
 
 @mark.common

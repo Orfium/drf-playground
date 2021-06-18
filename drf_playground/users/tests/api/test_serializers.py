@@ -1,7 +1,8 @@
-from django.test import TestCase, RequestFactory
-from mock import MagicMock
+from django.test import RequestFactory, TestCase
 from drf_playground.users.api.serializers import UserSerializer
+from mock import MagicMock
 from pytest import mark
+
 
 @mark.users
 @mark.users_serializers
@@ -35,5 +36,3 @@ class TestUserSerializer(TestCase):
         result = serializer.create(create_dict)
 
         self.assertEqual(result.email, new_email)
-
-

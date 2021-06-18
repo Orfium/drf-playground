@@ -24,3 +24,8 @@ django-csp==3.7  # https://github.com/mozilla/django-csp
 djangorestframework==3.12.2  # https://github.com/encode/django-rest-framework
 drf-yasg==1.20.0 # https://github.com/axnsan12/drf-yasg
 django-debug-toolbar~=3.1.1
+
+mock~=4.0.2
+pytest~=6.1.2
+Faker~=8.8.1
+factory-boy
