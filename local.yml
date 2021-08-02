@@ -20,7 +20,7 @@ services:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
-      - "8001:8000"
+      - "8000:8000"
     command: /start
 
   postgres:
@@ -30,8 +30,6 @@ services:
     image: drf_playground_local_postgres
     restart: unless-stopped
     container_name: postgres
-    ports:
-      - "5433:5432"
     volumes:
       - local_postgres_data:/var/lib/postgresql/data:Z
       - local_postgres_data_backups:/backups:z
