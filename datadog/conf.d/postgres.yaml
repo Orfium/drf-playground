@@ -12,6 +12,7 @@ instances:
     ## Port to use when connecting to PostgreSQL.
     #
     port: <YOUR PORT>
+    ssl: 'require'
 
     ## @param user - string - required
     ## Datadog Username created to connect to PostgreSQL.
