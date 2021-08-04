@@ -1,11 +1,19 @@
 {
-    "scripts": {},
-    "environments": {
-        "review": {
-            "addons": [
-                "heroku-postgresql:hobby-basic",
-                "heroku-redis:hobby-dev"
-            ]
-        }
+  "scripts": {},
+  "buildpacks": [
+    {
+      "url": "https://github.com/DataDog/heroku-buildpack-datadog.git"
+    },
+    {
+      "url": "heroku/python"
     }
+  ],
+  "environments": {
+    "review": {
+      "addons": [
+        "heroku-postgresql:hobby-basic",
+        "heroku-redis:hobby-basic"
+      ]
+    }
+  }
 }
