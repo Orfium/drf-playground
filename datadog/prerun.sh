@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 
 # Disable the Datadog Agent based on dyno type
-if [ "$DYNOTYPE" == "run" ] || [ "$DYNOTYPE" == "release" ]; then
+# Disable the Datadog Agent based on dyno type
+if [ "$DYNOTYPE" == "run" ] || [ "$DYNOTYPE" == "release" ] || [ "$DYNOTYPE" == "beat" ]; then
   DISABLE_DATADOG_AGENT="true"
 fi
 
 if [ "$DYNOTYPE" == "web" ] ; then
-  DD_SERVICE="drf_playground-web"
+  DD_SERVICE="$DD_SERVICE_DJANGO"
 fi
 
 if [ "$DYNOTYPE" == "worker" ] ; then
-  DD_SERVICE="drf_playground-worker"
-fi
-
-if [ "$DYNOTYPE" == "beat" ] ; then
-  DD_SERVICE="drf_playground-beat"
+  DD_SERVICE="$DD_SERVICE_WORKER"
 fi
 
 # Set app version based on HEROKU_SLUG_COMMIT
