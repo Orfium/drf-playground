@@ -20,7 +20,7 @@ coverage==5.5  # https://github.com/nedbat/coveragepy
 pylint==2.9.6  # https://github.com/PyCQA/pylint
 pylint-django==2.4.4  # https://github.com/PyCQA/pylint-django
 pylint-celery==0.3  # https://github.com/PyCQA/pylint-celery
-pre-commit==2.13.0  # https://github.com/pre-commit/pre-commit
+pre-commit==2.14.1  # https://github.com/pre-commit/pre-commit
 
 
 # Django
