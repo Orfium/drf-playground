@@ -15,7 +15,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["email"]
+        fields = []
 
     def create(self, validated_data):
         with transaction.atomic():
@@ -28,10 +28,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserReadSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
+    files = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ["email", "profile"]
+        fields = ["email", "profile", "files"]
 
 
 class SignInSerializer(serializers.Serializer):
