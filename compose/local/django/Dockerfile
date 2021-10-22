@@ -1,7 +1,12 @@
-FROM python:3.8-slim-buster
+ARG BASE_IMAGE=python:3.8.9-slim-buster
+
+FROM ${BASE_IMAGE} as base
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+
+ARG WORKDIR=/app
+WORKDIR ${WORKDIR}
 
 RUN apt-get update \
   # dependencies for building Python packages
@@ -14,15 +19,18 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
+RUN addgroup --system django \
+    && adduser --system --ingroup django django
 
-COPY ./requirements /app/requirements
-# Upgrade pip
+FROM base as django
+
+# Requirements are installed here to ensure they will be cached.
+COPY ./requirements ${WORKDIR}/requirements
 RUN pip install --upgrade pip
-WORKDIR /app
-RUN pip install -r /app/requirements/local.txt
-# Avoid to install requirements (if they are unchanged) every time we build the image
+RUN pip install -r ${WORKDIR}/requirements/local.txt
 COPY . /app
 
+FROM django as app
 COPY ./compose/production/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint
 RUN chmod +x /entrypoint
