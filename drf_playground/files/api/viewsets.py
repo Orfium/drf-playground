@@ -22,3 +22,6 @@ class FileViewSet(
 
     def get_serializer_class(self):
         return FileSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
