@@ -11,5 +11,5 @@ django-anymail==8.4  # https://github.com/anymail/django-anymail
 
 # Datadog
 # ------------------------------------------------------------------------------
-ddtrace==0.50.3  # https://github.com/DataDog/dd-trace-py
+ddtrace==0.59.1  # https://github.com/DataDog/dd-trace-py
 setproctitle==1.2.2 # https://github.com/dvarrazzo/py-setproctitle
