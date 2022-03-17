@@ -2,9 +2,6 @@
   "scripts": {},
   "buildpacks": [
     {
-      "url": "https://github.com/DataDog/heroku-buildpack-datadog.git"
-    },
-    {
       "url": "heroku/python"
     }
   ],
